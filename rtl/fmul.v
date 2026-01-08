@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module fp_multiply(
+module fmul(
     input [31:0] a_i,
     input [31:0] b_i,
     output wire [31:0] c_o
