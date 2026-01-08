@@ -7,9 +7,8 @@ module fmul(
     );
     
     wire sign_c;
-    reg [8:0] exp_c;
+    reg [7:0] exp_c;
     reg [47:0] pom_mant;
-    reg [22:0] mant_c_preround;
     reg [22:0] mant_c;
     wire [31:0] bias;
     assign sign_c = a_i[31] ^ b_i[31]; //ovo je moglo i u always-u da se ne bi stalno pisalo assign itd...
