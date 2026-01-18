@@ -29,18 +29,17 @@ module fmul #(
         if (pom_mant[MANT - 1] == 1'b0)begin  //01 xx
             mant_c = pom_mant[2*MANT - 1:MANT];
         end else if (pom_mant[MANT - 1] == 1'b1)begin //odbaceni bit 1?
-            if (|pom_mant[MANT - 2:0] == 1'b1) begin  //bar jedna jedinica
-                mant_c = {pom_mant[2*MANT - 1:MANT + 1], 1'b1}; //na vise
+            if (|pom_mant[MANT - 2:0]) begin  //bar jedna jedinica          PROVERI!!!
+                mant_c = pom_mant[2*MANT - 1:MANT] + 1; //na vise   //round IZMENI
                 
                 if (mant_c[MANT - 1] == 1'b1) begin   // normalizacija
                     mant_c = mant_c >> 1;
                     exp_c = exp_c + 1;
                 end
                 
-            end else if (|pom_mant[MANT - 2:0] != 1'b1) begin //nema nijedne jedinice
+            end else if (~|pom_mant[MANT - 2:0]) begin //nema nijedne jedinice
                 if (pom_mant[MANT] == 1'b1) begin //poslednji bit 1?
-                    mant_c = {pom_mant[2*MANT - 1:MANT + 1], 1'b1}; //na vise
-                    
+                    mant_c = {pom_mant[2*MANT - 1:MANT + 1], 1'b1}; //na vise                       
                     if (mant_c[MANT - 1] == 1'b1) begin   //normalizacija
                         mant_c = mant_c >> 1;
                         exp_c = exp_c + 1;
